@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: noco-shop
+
+telegram:
+  bot:
+    token:
+    webhook:
