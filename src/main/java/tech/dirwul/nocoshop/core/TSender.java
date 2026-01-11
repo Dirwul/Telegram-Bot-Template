@@ -25,7 +25,7 @@ public class TSender {
 		bot.execute(request, new Callback<T, R>() {
 			@Override
 			public void onResponse(T request, R response) {
-				log.info("Сообщение доставлено!");
+				log.debug("Сообщение доставлено!");
 			}
 			@Override
 			public void onFailure(T request, IOException e) {

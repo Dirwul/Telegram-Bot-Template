@@ -23,7 +23,5 @@ public class UpdateDispatcher {
 				return;
 			}
 		}
-		// if no handle candidate
-		log.warn("No handler found for update {}", update);
 	}
 }

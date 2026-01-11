@@ -10,7 +10,7 @@ import tech.dirwul.nocoshop.dispatchers.UpdateHandler;
 import java.util.Set;
 
 @Component
-public class MainHandler extends UpdateHandler {
+public class StartHandler extends UpdateHandler {
 
 	@Override
 	public boolean supports(Update update) {
@@ -20,11 +20,11 @@ public class MainHandler extends UpdateHandler {
 	@Override
 	public void handle(Update update) {
 		sender.sendAsync(new SendMessage(
-				update.message().chat().id(),
-				"А вот и темплейт для бота от Dirwul'a")
-				.disableNotification(true)
-				.parseMode(ParseMode.HTML)
-				.replyMarkup(Keyboards.mainReply())
+			(long) update.message().chat().id(),
+			"А вот и темплейт для бота от Dirwul'a")
+			.disableNotification(true)
+			.parseMode(ParseMode.HTML)
+			.replyMarkup(Keyboards.startReply())
 		);
 	}
 }

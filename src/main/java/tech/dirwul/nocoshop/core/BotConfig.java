@@ -1,9 +1,11 @@
 package tech.dirwul.nocoshop.core;
 
 import com.pengrad.telegrambot.TelegramBot;
+import com.pengrad.telegrambot.request.DeleteWebhook;
 import com.pengrad.telegrambot.request.SetWebhook;
 import com.pengrad.telegrambot.response.BaseResponse;
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,14 +17,15 @@ public class BotConfig {
 
 	private static final Logger log = LoggerFactory.getLogger(BotConfig.class);
 
-	private final String webhookUrl;
+	private final String webhook;
 	final TelegramBot bot;
 
 	public BotConfig(
-		@Value("${telegram.bot.token}") String token,
-		@Value("${telegram.bot.webhook}") String webhookUrl
+		@Value("${telegram.token}") String token,
+		@Value("${telegram.webhook.url}") String webhookUrl,
+		@Value("${telegram.webhook.path}") String webhookPath
 	) {
-		this.webhookUrl = webhookUrl;
+		this.webhook = webhookUrl + webhookPath;
 		this.bot = new TelegramBot(token);
 	}
 
@@ -34,8 +37,14 @@ public class BotConfig {
 	@PostConstruct
 	public void postConstruct() {
 		BaseResponse response = bot.execute(
-			new SetWebhook().url(webhookUrl)
+			new SetWebhook().url(webhook)
 		);
-		log.warn("SetWebhook status: {}", response.isOk());
+		log.debug("SetWebhook status: {}", response.isOk());
+	}
+
+	@PreDestroy
+	public void preDestroy() {
+		BaseResponse response = bot.execute(new DeleteWebhook());
+		log.debug("Delete webhook status: {}", response.isOk());
 	}
 }

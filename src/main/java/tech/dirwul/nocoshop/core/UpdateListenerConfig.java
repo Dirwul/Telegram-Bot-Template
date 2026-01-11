@@ -22,15 +22,15 @@ public class UpdateListenerConfig {
 		this.dispatcher = dispatcher;
 	}
 
-	@PostMapping("/")
+	@PostMapping("${telegram.webhook.path}")
 	public void onUpdate(@RequestBody String json) {
 		Update update = BotUtils.parseUpdate(json);
 		if (update == null) {	// bad request
-			log.error("Invalid json received, UPDATE is null");
+			log.warn("Invalid json received, UPDATE is null");
 			return;
 		}
 		if (update.message() == null) {	// bad request
-			log.error("Invalid json received, MESSAGE is null");
+			log.warn("Invalid json received, MESSAGE is null");
 			return;
 		}
 

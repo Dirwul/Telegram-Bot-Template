@@ -1,8 +1,13 @@
 spring:
   application:
-    name: noco-shop
+    name: template
 
 telegram:
-  bot:
-    token:
-    webhook:
+  token:
+  webhook:
+    url:
+    path: /webhook
+
+logging:
+  level:
+    tech.dirwul.nocoshop: debug

@@ -6,18 +6,19 @@ import org.springframework.stereotype.Component;
 import tech.dirwul.nocoshop.dispatchers.UpdateHandler;
 
 @Component
-public class EchoHandler extends UpdateHandler {
+public class WrongMessageHandler extends UpdateHandler {
+
 
 	@Override
-	public boolean supports(Update update) {
-		return false; // todo rework
+	protected boolean supports(Update update) {
+		return true;
 	}
 
 	@Override
-	public void handle(Update update) {
+	protected void handle(Update update) {
 		sender.sendAsync(new SendMessage(
-			update.message().chat().id(),
-			update.message().text()
+			(long) update.message().chat().id(),
+			"Неизвестная команда..."
 		));
 	}
 }
