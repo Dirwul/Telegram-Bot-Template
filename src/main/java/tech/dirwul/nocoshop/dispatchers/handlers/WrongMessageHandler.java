@@ -8,14 +8,13 @@ import tech.dirwul.nocoshop.dispatchers.UpdateHandler;
 @Component
 public class WrongMessageHandler extends UpdateHandler {
 
-
 	@Override
 	protected boolean supports(Update update) {
-		return true;
+		return false;
 	}
 
 	@Override
-	protected void handle(Update update) {
+	public void handle(Update update) {
 		sender.sendAsync(new SendMessage(
 			(long) update.message().chat().id(),
 			"Неизвестная команда..."

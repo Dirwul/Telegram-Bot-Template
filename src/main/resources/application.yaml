@@ -3,9 +3,9 @@ spring:
     name: template
 
 telegram:
-  token:
+  token: 8194718253:AAGwC6VIXgl3LRcf0WmzwQbpU63iyWU1ar0
   webhook:
-    url:
+    url: https://noco.second-space.ru
     path: /webhook
 
 logging:

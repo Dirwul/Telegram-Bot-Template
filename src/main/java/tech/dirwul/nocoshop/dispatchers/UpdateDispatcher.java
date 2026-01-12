@@ -4,7 +4,9 @@ import com.pengrad.telegrambot.model.Update;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import tech.dirwul.nocoshop.dispatchers.handlers.WrongMessageHandler;
 
 import java.util.List;
 
@@ -12,9 +14,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UpdateDispatcher {
 
-	private final Logger log = LoggerFactory.getLogger(UpdateDispatcher.class);
-
 	private final List<UpdateHandler> handlers;
+
+	private final WrongMessageHandler wrongMessageHandler;
 
 	public void dispatch(Update update) {
 		for (UpdateHandler handler : handlers) {
@@ -23,5 +25,7 @@ public class UpdateDispatcher {
 				return;
 			}
 		}
+		// if no handler candidates
+		wrongMessageHandler.handle(update);
 	}
 }
